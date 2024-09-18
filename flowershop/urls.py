@@ -11,7 +11,9 @@ urlpatterns = [
     path('catalog/', views.catalog, name='catalog'),
     path('consultation/', views.consultation, name='consultation'),
     path('order/', views.order, name='order'),
-    path('order_step/', views.order_step, name='order_step')
+    path('order_step/', views.order_step, name='order_step'),
+    path('quiz/', views.quiz, name='quiz'),
+    path('quiz/step/', views.quiz, name='quiz-step')
 ]
 
 if settings.DEBUG:

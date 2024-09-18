@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 def index(request):
     return render(request, 'index.html')
@@ -17,3 +17,16 @@ def order(request):
 
 def order_step(request):
     return render(request, 'order-step.html')
+
+def quiz(request):
+    if request.method == 'POST':
+
+        selected_event = request.POST.get('event')
+
+        if selected_event:
+            return render(request, 'quiz-step.html')
+
+    step = request.GET.get('step', 'event')
+
+    if step == 'event':
+        return render(request, 'quiz.html')
