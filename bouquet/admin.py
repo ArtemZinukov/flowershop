@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.utils.html import mark_safe
 
 from django.contrib import admin
-from .models import Bouquet, Event
+from .models import Bouquet, Event, Budget
 
 
 class BouquetAdmin(admin.ModelAdmin):
@@ -23,3 +23,4 @@ class BouquetAdmin(admin.ModelAdmin):
 
 admin.site.register(Bouquet, BouquetAdmin)
 admin.site.register(Event)
+admin.site.register(Budget)

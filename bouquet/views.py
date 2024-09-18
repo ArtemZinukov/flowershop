@@ -1,4 +1,5 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render
+from .models import Event, Budget
 
 def index(request):
     return render(request, 'index.html')
@@ -20,13 +21,16 @@ def order_step(request):
 
 
 def quiz(request):
+    events = Event.objects.all()
+    budgets = Budget.objects.all()
+
     if request.method == 'POST':
         selected_event = request.POST.get('event')
         selected_budget = request.POST.get('budget')
 
         if selected_event:
             request.session['selected_event'] = selected_event
-            return render(request, 'quiz-step.html')
+            return render(request, 'quiz-step.html', {'budgets': budgets})
 
         if selected_budget:
             request.session['selected_budget'] = selected_budget
@@ -38,8 +42,8 @@ def quiz(request):
     step = request.GET.get('step', 'event')
 
     if step == 'event':
-        return render(request, 'quiz.html')
+        return render(request, 'quiz.html', {'events': events})
     elif step == 'budget':
-        return render(request, 'quiz-step.html')
+        return render(request, 'quiz-step.html', {'budgets': budgets})
 
-    return render(request, 'quiz.html')
+    return render(request, 'quiz.html', {'events': events})
