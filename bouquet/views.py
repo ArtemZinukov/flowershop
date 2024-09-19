@@ -1,5 +1,4 @@
 from django.shortcuts import render
-from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import ListView, DetailView
 from .models import Bouquet, Event, Budget
 
@@ -28,7 +27,6 @@ def order_step(request):
     return render(request, 'order-step.html')
 
 
-@csrf_exempt
 def quiz(request):
     events = Event.objects.all()
     budgets = Budget.objects.all()
