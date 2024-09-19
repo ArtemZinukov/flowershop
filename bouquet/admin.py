@@ -6,11 +6,10 @@ from .models import Bouquet, Event, Budget
 
 
 class BouquetAdmin(admin.ModelAdmin):
-    list_display = ("title", "price", "status", "image_preview")
-    list_filter = ("status",)
-    search_fields = ("title", "composition_description")
-    fields = ("title", "price", "status", "composition_description",
-              "image", "image_preview", "size_description", "events")
+    list_display = ("title", "price",  "image_preview")
+    search_fields = ("title", "composition")
+    fields = ("title", "price",  "description", "composition",
+              "image", "image_preview", "size", "events")
     readonly_fields = ("image_preview",)
 
     def image_preview(self, obj):

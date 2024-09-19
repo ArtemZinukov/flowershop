@@ -14,7 +14,8 @@ class Event(models.Model):
 
 
 class Budget(models.Model):
-    amount = models.CharField(max_length=100, blank=False, null=False, verbose_name="Бюджет")
+    amount = models.CharField(
+        max_length=100, blank=False, null=False, verbose_name="Бюджет")
 
     class Meta:
         verbose_name = "Бюджет"
@@ -25,23 +26,18 @@ class Budget(models.Model):
 
 
 class Bouquet(models.Model):
-    STATUS = (
-        ("NEW", "Новый"),
-        ("PAY", "Оплачен"),
-        ("CFM", "Подтвержден"),
-        ("COM", "Завершен"),
-    )
+
     title = models.CharField(max_length=100, blank=False,
                              null=False, verbose_name="Название")
     price = models.DecimalField(
         blank=False, null=False, max_digits=8, decimal_places=2, verbose_name="Цена")
-    status = models.CharField(
-        max_length=3, choices=STATUS, default="NEW", verbose_name="Статус", db_index=True)
-    composition_description = models.TextField(
+    description = models.TextField(
+        blank=False, null=False, verbose_name="Описание")
+    composition = models.TextField(
         blank=False, null=False, verbose_name="Состав")
     image = models.ImageField(upload_to="images/")
-    size_description = models.CharField(
-        max_length=100, blank=False, null=False, verbose_name="Размер")
+    size = models.CharField(
+        max_length=100, blank=True, null=True, verbose_name="Размер")
     events = models.ManyToManyField(Event, blank=True)
 
     class Meta:
