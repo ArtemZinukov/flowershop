@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import ListView, DetailView
 from .models import Bouquet, Event, Budget
 
@@ -27,33 +28,36 @@ def order_step(request):
     return render(request, 'order-step.html')
 
 
+@csrf_exempt
 def quiz(request):
     events = Event.objects.all()
     budgets = Budget.objects.all()
 
-    if request.method == 'POST':
-        selected_event = request.POST.get('event')
-        selected_budget = request.POST.get('budget')
+    event_name = request.GET.get("event")
+    budget = request.GET.get("budget")
 
-        if selected_event:
-            request.session['selected_event'] = selected_event
-            return render(request, 'quiz-step.html', {'budgets': budgets})
+    if event_name and budget:
+        try:
+            budget_value = int(budget)
+        except ValueError:
+            pass
+        else:
+            bouquet = Bouquet.objects.filter(events__title=event_name)\
+                .filter(price__lt=budget_value)\
+                .order_by("-price").first()
 
-        if selected_budget:
-            request.session['selected_budget'] = selected_budget
-            return render(request, 'result.html', {
-                'event': request.session.get('selected_event'),
-                'budget': selected_budget,
-            })
+        if not bouquet:
+            bouquet = Bouquet.objects.order_by("?").first()
+        return render(request, "result.html", {"bouquet": bouquet})
 
-    step = request.GET.get('step', 'event')
+    if event_name:
+        try:
+            event = events.get(title=event_name)
+        except Event.DoesNotExist:
+            return render(request, "quiz.html", {"events": events})
+        return render(request, "quiz-step.html", {"budgets": budgets, "event": event})
 
-    if step == 'event':
-        return render(request, 'quiz.html', {'events': events})
-    elif step == 'budget':
-        return render(request, 'quiz-step.html', {'budgets': budgets})
-
-    return render(request, 'quiz.html', {'events': events})
+    return render(request, "quiz.html", {"events": events})
 
 
 class CatalogView(ListView):

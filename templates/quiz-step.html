@@ -14,14 +14,13 @@
             </div>
             <div class="quiz__block">
                 <h1 class="quiz__title">На какой бюджет рассчитываете?</h1>
-                <form method="post">
-                    {% csrf_token %}
-                    <div class="quiz__elems fic">
-                        {% for budget in budgets %}
-                            <button type="submit" name="budget" value="{{ budget.amount }}" class="quiz__elem">{{ budget.amount }}</button>
-                        {% endfor %}
-                    </div>
-                </form>
+
+                <div class="quiz__elems fic">
+                    {% for budget in budgets %}
+                        <a href="?event={{ event.title }}&budget={{ budget.amount }}" class="quiz__elem">{{ budget.amount }}</a>
+                    {% endfor %}
+                </div>
+
                 <div class="quiz__progress">
                     <div class="quiz__progress_step">
                         <span class="quiz__progress_num">2</span>

@@ -541,6 +541,10 @@ height: 825px;*/
 	border-radius: 100px;
 }
 
+.quiz__elems a {
+	text-decoration: none;
+}
+
 .quiz__elem:last-child {
 	margin-right: 0;
 }

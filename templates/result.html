@@ -13,27 +13,27 @@
 							<span class="card__elems_intro">Описание:</span>
 							<div class="card__items">
 								<p class="card__items_text card__items_text__first">
-									Этот букет передает атмосферу летнего утра в деревне. Букет создан из свежих полевых цветов, собранных в самом сердце природы. В состав букета входит ромашка, пионовидная роза, альстромерия, эустома, веточка эвкалипта, декоративная зелень. Все цветы собраны вручную и аккуратно высушены. 
+									{{ bouquet.description}}
 								</p>
-								<p class="card__items_text">
+								{% comment %} <p class="card__items_text">
 									Букеты из полевых цветов - это не только прекрасный подарок, но и отличный способ выразить свои чувства.
-								</p>
+								</p> {% endcomment %}
 							</div>
 						</div>
 						<div class="card__elems ">
 							<span class="card__elems_intro">Состав:</span>
 							<div class="card__items">
 								<p class="card__items_text card__items_text__first">
-									Альстромерия белая 1 шт., Эустома белая 1 шт, Ромашка 1 шт, Роза пионовидная 1 шт 
+									{{ bouquet.composition }}
 								</p>
 								
 							</div>
 						</div>
 					</div>
-					<img src="{% static 'img/cardImg.jpg' %}" alt="result Img" class="result__block_img">
+					<img src="{{ bouquet.image.url }}" alt="result Img" class="result__block_img">
 					<div class="result__items">
-						<div class="title result__items_title">Летнее утро</div>
-						<div class="result__items_price">3 600 руб</div>
+						<div class="title result__items_title"> {{ bouquet.title }}</div>
+						<div class="result__items_price">{{ bouquet.formatted_price }} руб</div>
 						<button class="btn result__items_btn" onclick="location.href='{% url 'order' %}'">Заказать букет</button>
 						<hr class="result__items_line" />
 						<div class="result__items_intro">Хотите что-то более специальное?</div>
