@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 from .models import Bouquet, Event, Budget
 
 
@@ -64,3 +64,9 @@ class CatalogView(ListView):
     def get_queryset(self):
         queryset = super().get_queryset()
         return queryset if self.request.GET.get("all") else queryset[:6]
+
+
+class CardView(DetailView):
+    model = Bouquet
+    template_name = "card.html"
+    context_object_name = "bouquet"

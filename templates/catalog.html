@@ -10,11 +10,15 @@
 				<div class="catalog__block" id="cata">
 
 					{% for bouquet in bouquets %}
-							<div class="recommended__block_elems ficb recommended-bg" style="background-image: url('{{ bouquet.image.url }}');">
-								<span class="recommended_intro">{{ bouquet.title }}</span>
-								<span class="recommended_price">{{ bouquet.price }} руб</span>
-							</div>
+								<div class="recommended__block_elems ficb recommended-bg" 
+									style="background-image: url('{{ bouquet.image.url }}');" 
+									onclick="window.location.href='{% url 'card' bouquet.id %}'"
+								>
+									<span class="recommended_intro">{{ bouquet.title }}</span>
+									<span class="recommended_price">{{ bouquet.price }} руб</span>
+								</div>
 					{% endfor %}
+
 				</div>
 				{% if 'all' not in request.GET %}
 					<button class="btn largeBtn catalog__btn" onclick="location.href='{% url 'catalog' %}?all#cata'">Показать ещё</button>
