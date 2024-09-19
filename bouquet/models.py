@@ -44,5 +44,11 @@ class Bouquet(models.Model):
         verbose_name = "Букет"
         verbose_name_plural = "Букеты"
 
+    @property
+    def formatted_price(self):
+        if self.price % 1 == 0:
+            return int(self.price)
+        return self.price
+
     def __str__(self):
         return str(self.title)
