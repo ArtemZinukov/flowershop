@@ -11,7 +11,6 @@
 
 					{% for bouquet in bouquets %}
 							<div class="recommended__block_elems ficb recommended-bg" style="background-image: url('{{ bouquet.image.url }}');">
-								{% comment %} <img src="{{ bouquet.image.url }}" alt="{{ bouquet.title }}" class="recommended-img"> {% endcomment %}
 								<span class="recommended_intro">{{ bouquet.title }}</span>
 								<span class="recommended_price">{{ bouquet.price }} руб</span>
 							</div>
