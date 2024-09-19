@@ -36,13 +36,11 @@ def quiz(request):
 
     if event_name and budget:
         try:
-            budget_value = int(budget)
+            bouquet = Bouquet.objects.filter(events__title=event_name)\
+                .filter(price__lt=int(budget))\
+                .order_by("-price").first()
         except ValueError:
             pass
-        else:
-            bouquet = Bouquet.objects.filter(events__title=event_name)\
-                .filter(price__lt=budget_value)\
-                .order_by("-price").first()
 
         if not bouquet:
             bouquet = Bouquet.objects.order_by("?").first()
