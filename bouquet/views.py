@@ -1,7 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView
 from django.db.models import Prefetch
-from .models import Bouquet, Event, Budget
+from .models import Bouquet, Event, Budget, Consultation
+from .forms import ConsultationForm
 
 
 def index(request):
@@ -16,8 +17,17 @@ def catalog(request):
     return render(request, "catalog.html")
 
 
-def consultation(request):
-    return render(request, "consultation.html")
+def consultation_view(request):
+    if request.method == 'POST':
+        form = ConsultationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('index')
+
+    else:
+        form = ConsultationForm()
+
+    return render(request, 'consultation.html', {'form': form})
 
 
 def order(request):

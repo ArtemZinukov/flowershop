@@ -1,4 +1,6 @@
 from django.db import models
+from django.utils import timezone
+from phonenumber_field.modelfields import PhoneNumberField
 
 
 class Event(models.Model):
@@ -52,3 +54,19 @@ class Bouquet(models.Model):
 
     def __str__(self):
         return str(self.title)
+
+
+class Consultation(models.Model):
+    client_name = models.CharField(max_length=100,verbose_name="Имя клиента")
+    phone_number = PhoneNumberField(verbose_name="Номер телефона")
+    registration_time = models.DateTimeField(default=timezone.now(),
+                                             verbose_name="Время регистрации", blank=True, null=True)
+    order_accepted = models.BooleanField(default=False, verbose_name="Заказ принят", blank=True, null=True)
+
+    class Meta:
+        verbose_name = "Консультация"
+        verbose_name_plural = "Консультации"
+
+    def __str__(self):
+        return f"{self.client_name} - {self.phone_number}"
+

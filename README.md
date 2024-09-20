@@ -2,6 +2,6 @@
 
 ```
 python manage.py migrate
-python manage.py loadddata bouquets.json
+python manage.py loaddata bouquets.json
 cp -R images /media/images
 ```

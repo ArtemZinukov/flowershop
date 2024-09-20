@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.utils.html import mark_safe
 
 from django.contrib import admin
-from .models import Bouquet, Event, Budget
+from .models import Bouquet, Event, Budget, Consultation
 
 
 class BouquetAdmin(admin.ModelAdmin):
@@ -19,7 +19,10 @@ class BouquetAdmin(admin.ModelAdmin):
 
     image_preview.short_description = "Image Preview"
 
+class ConsultationAdmin(admin.ModelAdmin):
+    list_display = ('client_name', 'phone_number', 'registration_time', 'order_accepted')
 
 admin.site.register(Bouquet, BouquetAdmin)
 admin.site.register(Event)
 admin.site.register(Budget)
+admin.site.register(Consultation)
