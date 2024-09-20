@@ -39,14 +39,17 @@ def create_order(request):
         phone_number = request.POST.get('tel')
         address = request.POST.get('adres')
         order_time = request.POST.get('orderTime')
+        bouquet_id = request.POST.get('bouquet_id')
+
+        bouquet = Bouquet.objects.get(id=bouquet_id)
 
         order = Order(client_name=client_name, phone_number=phone_number,
-                      address=address, order_time=order_time)
+                      address=address, order_time=order_time, bouquet=bouquet)
         order.save()
 
         payment = Payment.create({
             "amount": {
-                "value": "10.00",
+                "value": str(bouquet.price),
                 "currency": "RUB"
             },
             "confirmation": {
@@ -59,7 +62,10 @@ def create_order(request):
 
         return redirect(payment.confirmation.confirmation_url)
 
-    return render(request, 'order.html')
+    else:
+        bouquet_id = request.GET.get('bouquet')
+
+    return render(request, 'order.html', {'bouquet_id': bouquet_id})
 
 
 def order_step(request):

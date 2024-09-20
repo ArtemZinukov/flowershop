@@ -76,6 +76,7 @@ class Order(models.Model):
     phone_number = PhoneNumberField(verbose_name="Номер телефона")
     address = models.CharField(max_length=255, verbose_name="Адрес")
     order_time = models.CharField(max_length=50,verbose_name="Время доставки")
+    bouquet = models.ForeignKey(Bouquet, on_delete=models.CASCADE, related_name='orders', verbose_name="Букет")
 
     class Meta:
         verbose_name = "Заказ"
@@ -83,4 +84,8 @@ class Order(models.Model):
 
     def __str__(self):
         return f"Заказ для {self.client_name} - {self.phone_number}"
+
+    @property
+    def bouquet_price(self):
+        return self.bouquet.price if self.bouquet else None
 

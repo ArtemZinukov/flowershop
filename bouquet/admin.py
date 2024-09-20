@@ -22,17 +22,25 @@ class BouquetAdmin(admin.ModelAdmin):
 class ConsultationAdmin(admin.ModelAdmin):
     list_display = ('client_name', 'phone_number', 'registration_time', 'order_accepted')
 
+
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ('client_name', 'phone_number', 'address', 'order_time')
+    list_display = ('client_name', 'phone_number', 'address', 'order_time', 'bouquet',
+                    'get_bouquet_price')
     search_fields = ('client_name', 'phone_number', 'address')
-    list_filter = ('order_time',)
+    list_filter = ('order_time', 'bouquet')
     ordering = ('-id',)
 
     fieldsets = (
         (None, {
-            'fields': ('client_name', 'phone_number', 'address', 'order_time')
+            'fields': ('client_name', 'phone_number', 'address', 'order_time', 'bouquet')
         }),
     )
+
+    def get_bouquet_price(self, obj):
+        return obj.bouquet.price if obj.bouquet else "Нет букета"
+
+    get_bouquet_price.short_description = "Цена букета"
+
 
 admin.site.register(Bouquet, BouquetAdmin)
 admin.site.register(Event)
