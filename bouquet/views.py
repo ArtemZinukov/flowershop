@@ -4,27 +4,27 @@ from .models import Bouquet, Event, Budget
 
 
 def index(request):
-    return render(request, 'index.html')
+    return render(request, "index.html")
 
 
 def card(request):
-    return render(request, 'card.html')
+    return render(request, "card.html")
 
 
 def catalog(request):
-    return render(request, 'catalog.html')
+    return render(request, "catalog.html")
 
 
 def consultation(request):
-    return render(request, 'consultation.html')
+    return render(request, "consultation.html")
 
 
 def order(request):
-    return render(request, 'order.html')
+    return render(request, "order.html")
 
 
 def order_step(request):
-    return render(request, 'order-step.html')
+    return render(request, "order-step.html")
 
 
 def quiz(request):
@@ -36,11 +36,14 @@ def quiz(request):
 
     if event_name and budget:
         try:
-            bouquet = Bouquet.objects.filter(events__title=event_name)\
-                .filter(price__lt=int(budget))\
-                .order_by("-price").first()
+            bouquet = (
+                Bouquet.objects.filter(events__title=event_name)
+                .filter(price__lt=int(budget))
+                .order_by("-price")
+                .first()
+            )
         except ValueError:
-            pass
+            bouquet = None
 
         if not bouquet:
             bouquet = Bouquet.objects.order_by("?").first()
