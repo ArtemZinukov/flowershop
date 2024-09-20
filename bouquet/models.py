@@ -70,3 +70,17 @@ class Consultation(models.Model):
     def __str__(self):
         return f"{self.client_name} - {self.phone_number}"
 
+
+class Order(models.Model):
+    client_name = models.CharField(max_length=100, verbose_name="Имя клиента")
+    phone_number = PhoneNumberField(verbose_name="Номер телефона")
+    address = models.CharField(max_length=255, verbose_name="Адрес")
+    order_time = models.CharField(max_length=50,verbose_name="Время доставки")
+
+    class Meta:
+        verbose_name = "Заказ"
+        verbose_name_plural = "Заказы"
+
+    def __str__(self):
+        return f"Заказ для {self.client_name} - {self.phone_number}"
+

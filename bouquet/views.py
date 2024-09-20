@@ -1,9 +1,12 @@
 from django.shortcuts import render, redirect
+from django.conf import settings
 from django.views.generic import ListView, DetailView
 from django.db.models import Prefetch
-from .models import Bouquet, Event, Budget, Consultation
+from .models import Bouquet, Event, Budget, Order
 from .forms import ConsultationForm
+from yookassa import Configuration, Payment
 
+Configuration.configure(settings.YOOKASSA_SHOP_ID, settings.YOOKASSA_SECRET_KEY)
 
 def index(request):
     return render(request, "index.html")
@@ -30,8 +33,33 @@ def consultation_view(request):
     return render(request, 'consultation.html', {'form': form})
 
 
-def order(request):
-    return render(request, "order.html")
+def create_order(request):
+    if request.method == 'POST':
+        client_name = request.POST.get('fname')
+        phone_number = request.POST.get('tel')
+        address = request.POST.get('adres')
+        order_time = request.POST.get('orderTime')
+
+        order = Order(client_name=client_name, phone_number=phone_number,
+                      address=address, order_time=order_time)
+        order.save()
+
+        payment = Payment.create({
+            "amount": {
+                "value": "10.00",
+                "currency": "RUB"
+            },
+            "confirmation": {
+                "type": "redirect",
+                "return_url": request.build_absolute_uri('/')
+            },
+            "capture": True,
+            "description": f"Заказ от {client_name}"
+        })
+
+        return redirect(payment.confirmation.confirmation_url)
+
+    return render(request, 'order.html')
 
 
 def order_step(request):

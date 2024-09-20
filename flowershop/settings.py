@@ -1,5 +1,10 @@
 import os
 from pathlib import Path
+from environs import Env
+
+
+env = Env()
+env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -116,3 +121,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+YOOKASSA_SHOP_ID = env('YOOKASSA_SHOP_ID')
+YOOKASSA_SECRET_KEY = env('YOOKASSA_SECRET_KEY')
