@@ -25,14 +25,14 @@ class ConsultationAdmin(admin.ModelAdmin):
 
 class OrderAdmin(admin.ModelAdmin):
     list_display = ('client_name', 'phone_number', 'address', 'order_time', 'bouquet',
-                    'get_bouquet_price')
+                    'get_bouquet_price', 'status')
     search_fields = ('client_name', 'phone_number', 'address')
     list_filter = ('order_time', 'bouquet')
     ordering = ('-id',)
 
     fieldsets = (
         (None, {
-            'fields': ('client_name', 'phone_number', 'address', 'order_time', 'bouquet')
+            'fields': ('client_name', 'phone_number', 'address', 'order_time', 'bouquet', 'status')
         }),
     )
 
