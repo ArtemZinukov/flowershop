@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
+from django.db.models import Prefetch
 from .models import Bouquet, Event, Budget
 
 
@@ -40,6 +41,7 @@ def quiz(request):
                 Bouquet.objects.filter(events__title=event_name)
                 .filter(price__lt=int(budget))
                 .order_by("-price")
+                .prefetch_related(Prefetch("events", queryset=Event.objects.filter(title=event_name)))
                 .first()
             )
         except ValueError:
