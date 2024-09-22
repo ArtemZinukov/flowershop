@@ -3,4 +3,5 @@ pillow==10.4.0
 django-phonenumber-field==8.0.0
 environs==11.0.0
 yookassa==3.3.0
-phonenumbers==8.13.45aiogram==3.13.1
+phonenumbers==8.13.45
+aiogram==3.13.1
