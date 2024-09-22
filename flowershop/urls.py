@@ -6,7 +6,7 @@ from bouquet import views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path('', views.index, name='index'),
+    path('', views.Index.as_view(), name='index'),
     path('card/<int:pk>/', views.CardView.as_view(), name='card'),
     path('catalog/', views.CatalogView.as_view(), name='catalog'),
     path('consultation/', views.consultation_view, name='consultation'),

@@ -6,18 +6,8 @@ from .models import Bouquet, Event, Budget, Order
 from .forms import ConsultationForm
 from yookassa import Configuration, Payment
 
-Configuration.configure(settings.YOOKASSA_SHOP_ID, settings.YOOKASSA_SECRET_KEY)
-
-def index(request):
-    return render(request, "index.html")
-
-
-def card(request):
-    return render(request, "card.html")
-
-
-def catalog(request):
-    return render(request, "catalog.html")
+Configuration.configure(settings.YOOKASSA_SHOP_ID,
+                        settings.YOOKASSA_SECRET_KEY)
 
 
 def consultation_view(request):
@@ -119,3 +109,12 @@ class CardView(DetailView):
     model = Bouquet
     template_name = "card.html"
     context_object_name = "bouquet"
+
+
+class Index(ListView):
+    model = Bouquet
+    template_name = "index.html"
+    context_object_name = "bouquets"
+
+    def get_queryset(self):
+        return super().get_queryset()[:3]
