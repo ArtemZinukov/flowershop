@@ -46,7 +46,6 @@ class OrderAdmin(admin.ModelAdmin):
     get_bouquet_price.short_description = "Цена букета"
 
     def save_model(self, request, obj, form, change):
-        print("test")
         if change:
             old_obj = Order.objects.get(id=obj.id)
             if obj.status != old_obj.status and obj.status == 'confirmed':
