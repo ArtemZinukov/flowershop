@@ -57,11 +57,12 @@ class Bouquet(models.Model):
 
 
 class Consultation(models.Model):
-    client_name = models.CharField(max_length=100,verbose_name="Имя клиента")
+    client_name = models.CharField(max_length=100, verbose_name="Имя клиента")
     phone_number = PhoneNumberField(verbose_name="Номер телефона")
     registration_time = models.DateTimeField(default=timezone.now(),
                                              verbose_name="Время регистрации", blank=True, null=True)
-    order_accepted = models.BooleanField(default=False, verbose_name="Заказ принят", blank=True, null=True)
+    order_accepted = models.BooleanField(
+        default=False, verbose_name="Заказ принят", blank=True, null=True)
 
     class Meta:
         verbose_name = "Консультация"
@@ -74,14 +75,16 @@ class Consultation(models.Model):
 class Order(models.Model):
     ORDER_STATUS_CHOICES = (
         ('accepted', 'Заказ оплачен'),
+        ('confirmed', 'Заказ подтвержден'),
         ('delivering', 'Заказ доставляется'),
         ('completed', 'Выполнен'),
     )
     client_name = models.CharField(max_length=100, verbose_name="Имя клиента")
     phone_number = PhoneNumberField(verbose_name="Номер телефона")
     address = models.CharField(max_length=255, verbose_name="Адрес")
-    order_time = models.CharField(max_length=50,verbose_name="Время доставки")
-    bouquet = models.ForeignKey(Bouquet, on_delete=models.CASCADE, related_name='orders', verbose_name="Букет")
+    order_time = models.CharField(max_length=50, verbose_name="Время доставки")
+    bouquet = models.ForeignKey(
+        Bouquet, on_delete=models.CASCADE, related_name='orders', verbose_name="Букет")
     status = models.CharField(max_length=20, choices=ORDER_STATUS_CHOICES, default='accepted',
                               verbose_name="Статус заказа")
 
@@ -95,4 +98,3 @@ class Order(models.Model):
     @property
     def bouquet_price(self):
         return self.bouquet.price if self.bouquet else None
-

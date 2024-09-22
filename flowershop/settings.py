@@ -14,12 +14,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-&fo(1%wgkd3*ysbp4m=)*vq1p2xx0o=_!w&z4aua1_(l#%p4c^"
+SECRET_KEY = env('DJANGO_SECRET')
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env.bool("DEBUG", False)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', ['127.0.0.1', 'localhost'])
 
 
 # Application definition
@@ -114,6 +113,7 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 STATICFILES_DIRS = [BASE_DIR / "static"]
+STATIC_ROOT = BASE_DIR / "staticfiles"
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
@@ -124,3 +124,5 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 YOOKASSA_SHOP_ID = env('YOOKASSA_SHOP_ID')
 YOOKASSA_SECRET_KEY = env('YOOKASSA_SECRET_KEY')
+TELEGRAM_BOT_TOKEN = env('TELEGRAM_BOT_TOKEN', None)
+TELEGRAM_CHAT_ID = env('TELEGRAM_CHAT_ID', None)
