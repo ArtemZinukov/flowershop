@@ -34,7 +34,8 @@
 					<div class="result__items">
 						<div class="title result__items_title"> {{ bouquet.title }}</div>
 						<div class="result__items_price">{{ bouquet.formatted_price }} руб</div>
-						<a href="{% url 'order' %}?bouquet={{ bouquet.id }}" class="btn largeBtn card__btn result__items_btn">Заказать букет</a>
+						{% comment %} <a href="{% url 'order' %}?bouquet={{ bouquet.id }}" class="btn largeBtn card__btn result__items_btn">Заказать букет</a> {% endcomment %}
+						<button class="btn largeBtn card__btn result__items_btn" onclick="location.href='{% url 'order' %}?bouquet={{ bouquet.id }}'">Заказать букет</button>
 						<hr class="result__items_line" />
 						<div class="result__items_intro">Хотите что-то более специальное?</div>
 						<div class="result__items_block">
