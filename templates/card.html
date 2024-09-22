@@ -44,7 +44,8 @@
 						</div>
 					</div>
 						{% endif %}
-					<button class="btn largeBtn card__btn">Заказать букет</button>
+					{% comment %} <button class="btn largeBtn card__btn">Заказать букет</button> {% endcomment %}
+					<button class="btn largeBtn card__btn result__items_btn" onclick="location.href='{% url 'order' %}?bouquet={{ bouquet.id }}'">Заказать букет</button>
 				</div>
 			</div>
 		</div>
