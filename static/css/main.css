@@ -230,6 +230,7 @@ height: 825px;*/
 	height: 400px;
 	padding: 15px;
 	box-sizing: border-box;
+	flex-grow: 0;
 }
 
 .recommended__block_elems:hover {

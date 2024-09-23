@@ -102,7 +102,8 @@ class CatalogView(ListView):
 
     def get_queryset(self):
         queryset = super().get_queryset()
-        return queryset if self.request.GET.get("all") else queryset[:6]
+        print(self.request.GET)
+        return queryset if "all" in self.request.GET else queryset[:6]
 
 
 class CardView(DetailView):
