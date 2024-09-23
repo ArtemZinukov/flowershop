@@ -3,6 +3,7 @@ from django.contrib import admin
 from django.utils.html import mark_safe
 from django.contrib import admin
 from django.conf import settings
+import logging
 from aiogram import Bot
 from .models import Bouquet, Event, Budget, Consultation, Order
 
@@ -68,8 +69,12 @@ class OrderAdmin(admin.ModelAdmin):
             f"Price: {obj.bouquet.price if obj.bouquet else 'Нет букета'}"
         )
 
-        await bot.send_message(chat_id=chat_id, text=message)
-        await bot.session.close()
+        try:
+            await bot.send_message(chat_id=chat_id, text=message)
+        except Exception as e:
+            logging.error(e)
+        finally:
+            await bot.session.close()
 
 
 admin.site.register(Bouquet, BouquetAdmin)
